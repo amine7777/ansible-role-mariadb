@@ -23,19 +23,21 @@
     - name: Insall mariadb for Centos 8
       dnf:
         name: 
-          - mariadb
-          - mariadb-server
-          - MySQL-python
+          - python-devel 
+          - mysql-devel
+          - MariaDB-server 
+          - MariaDB-client
         state: present
       when: ansible_distribution_major_version == "8"
   when: ansible_distribution == "CentOS"
 
 - name: Insall mariadb for fedora 
   dnf:
-    name: 
-      - mariadb
-      - mariadb-server
-      - MySQL-python
+    name:
+      - python-devel 
+      - mysql-devel
+      - MariaDB-server 
+      - MariaDB-client
     state: present
   when:  ansible_distribution == "Fedora"
 
