@@ -21,7 +21,7 @@
     - not ansible_distribution_major_version == "8"
 
 - name: Insall mariadb for Centos 8
-  yum:
+  dnf:
     name: 
       - mariadb
       - mariadb-server

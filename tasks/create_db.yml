@@ -17,5 +17,5 @@
     login_password: "{{ item.login_password }}"
     db: "{{ item.name }}"
     state: "{{ item.state }}"
-  with_items: "{{ mariadb_databases}}"
+  with_items: "{{ mariadb_databases }}"
   when: mariadb_databases is defined
