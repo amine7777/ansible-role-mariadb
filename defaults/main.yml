@@ -1,0 +1,17 @@
+---
+# defaults file for mariadb
+mariadb_root_password: please_change_me
+default_root_password: ""
+     
+mariadb_users:
+  - name: john
+    password: doe
+    host: localhost
+    priv: '*.*:ALL'
+    state: present
+
+mariadb_databases:
+  - name: mydatabase
+    login_user: john
+    login_password: doe
+    state: present

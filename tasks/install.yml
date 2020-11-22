@@ -1,0 +1,30 @@
+---
+- name: Install mariadb for Debian
+  apt:
+    name:
+      - software-properties-common
+      - python-mysqldb
+      - mariadb-client
+      - mariadb-server
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Insall mariadb for "RedHat"
+  yum:
+    name: 
+      - mariadb
+      - mariadb-server
+      - MySQL-python
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Enable mariadb
+  systemd:
+    service: mariadb
+    enabled: yes
+
+- name: Start mariadb
+  systemd:
+    service: mariadb
+    state: started
+  notify: Restart mariadb

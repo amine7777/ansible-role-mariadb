@@ -1,0 +1,21 @@
+---
+- name: Create Users
+  mysql_user:
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    host: "{{ item.host }}"
+    priv: "{{ item.priv }}" 
+    state: "{{ item.state }}"
+  with_items: "{{ mariadb_users }}"
+  when: mariadb_users is defined
+
+- name: Create Databases
+  mysql_db:
+    login_user: "{{ item.login_user }}"
+    login_password: "{{ item.login_password }}"
+    db: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items: "{{ mariadb_databases}}"
+  when: mariadb_databases is defined

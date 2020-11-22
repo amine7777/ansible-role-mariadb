@@ -1,0 +1,44 @@
+---
+### SECURE_INSTALLATION ###
+
+- name: Set the root password
+  mysql_user:
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    login_host: localhost
+    check_implicit_admin: yes
+    user: root
+    password: "{{ mariadb_root_password }}"
+    state: present
+
+- name: Set the new root password
+  set_fact:
+    default_root_password: "{{ mariadb_root_password }}"
+
+- name: Removing root remote access IPv6 IPv4 localhost
+  mysql_user:
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    user: "root"
+    password: "{{ mariadb_root_password }}"
+    host: "{{ item }}"
+  with_items:
+    - '{{ ansible_hostname }}'
+    - ::1
+    - 127.0.0.1
+    - localhost
+
+- name: Deletes anonymous server user
+  mysql_user:
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    user: ""
+    password: "{{ mariadb_root_password }}"
+    state: absent
+
+- name: Removing the test database
+  mysql_db:
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    db: test
+    state: absent
