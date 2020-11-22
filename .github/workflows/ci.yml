@@ -25,7 +25,7 @@ jobs:
       - name: Lint code.
         run: |
           yamllint .
-          ansible-lint
+          ansible-lint -x '201'
                
   test:
     name: Molecule
@@ -36,7 +36,7 @@ jobs:
           - centos7
           - centos8
           - debian10
-          - ubuntu2004
+          #- ubuntu2004
           - ubuntu1804
           - fedora32
 
