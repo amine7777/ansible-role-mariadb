@@ -9,6 +9,7 @@
     priv: "{{ item.priv }}" 
     state: "{{ item.state }}"
   with_items: "{{ mariadb_users }}"
+  changed_when: false
   when: mariadb_users is defined
 
 - name: Create Databases
@@ -18,4 +19,5 @@
     db: "{{ item.name }}"
     state: "{{ item.state }}"
   with_items: "{{ mariadb_databases }}"
+  changed_when: false
   when: mariadb_databases is defined

@@ -4,3 +4,4 @@
   systemd:
     service: mariadb
     state: restarted
+  changed_when: false
