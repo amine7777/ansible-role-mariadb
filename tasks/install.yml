@@ -3,7 +3,7 @@
   apt:
     name:
       - software-properties-common
-      - python-mysqldb
+      - python3-mysqldb
       - mariadb-client
       - mariadb-server
     state: present
