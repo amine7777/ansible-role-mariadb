@@ -4,7 +4,7 @@
 - name: Set the root password
   mysql_user:
     login_user: root
-    login_password: ""
+    login_password: "{{ mariadb_root_password }}"
     login_host: localhost
     check_implicit_admin: yes
     user: root
