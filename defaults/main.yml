@@ -1,7 +1,6 @@
 ---
 # defaults file for mariadb
-mariadb_root_password: please_change_me
-default_root_password: ""
+mariadb_root_password: changemeplease
      
 mariadb_users:
   - name: john
