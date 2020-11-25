@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2004}-ansible:latest"
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
     command: ''
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -13,7 +13,7 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
-  options:
-    vvv: true
+  # options:
+  #   vvv: true
 verifier:
   name: ansible
