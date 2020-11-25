@@ -9,14 +9,35 @@
     state: present
   when: ansible_os_family == "Debian"
 
-- name: Insall mariadb for Centos
+- name: Install mariadb for Centos dists
+  block:
+    - name: Insall mariadb for Centos
+      yum:
+        name: 
+          - mariadb
+          - mariadb-server
+          - MySQL-python
+        state: present
+      when: not ansible_distribution_major_version == "8"
+    
+    - name: Insall mariadb for Centos 8
+      yum:
+        name: 
+          - mariadb
+          - mariadb-server
+          - MySQL-python3
+        state: present
+      when: ansible_distribution_major_version == "8"
+  when: ansible_os_family == "CentOS"
+
+- name: Insall mariadb for Fedora dists
   yum:
     name: 
       - mariadb
       - mariadb-server
       - MySQL-python3
     state: present
-  when: ansible_os_family == "RedHat"
+  when: ansible_distribution == "Fedora"
 
 - name: Enable mariadb
   systemd:
