@@ -3,7 +3,7 @@ dependencies: []
 galaxy_info:
   author: Amine Kahlaoui
   role_name: mariadb
-  description: This role installs Terraform hashicorp on your linux machine.
+  description: This role helps you to install mariadb on your linux machine.
   issue_tracker_url: https://github.com/amine7777/ansible-role-mariadb/issues
   company: https://www.cf2a.tv
   license: Apache-2.0
@@ -22,7 +22,7 @@ galaxy_info:
       versions:
         - all
   galaxy_tags:
-    - system
-    - image
-    - docker
-    - packer
+    - mariadb
+    - database
+    - mysql
+    - sql

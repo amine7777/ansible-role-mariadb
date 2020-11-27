@@ -6,7 +6,7 @@ mariadb_users:
   - name: john
     password: doe
     host: localhost
-    priv: "*.*:ALL"
+    priv: "mydatabase.*:ALL"
     state: present
 
 mariadb_databases:

@@ -6,7 +6,7 @@ This role helps you to install mariadb on your linux machine.
 
 |Travis|GitHubActions|Quality|Downloads|Version|
 |------|-------------|-------|---------|-------|
-|[![travis](https://travis-ci.com/amine7777/ansible-role-mariadb.svg?branch=master)](https://travis-ci.com/amine7777/ansible-role-mariadb)|[![github](https://github.com/amine7777/ansible-role-mariadb/workflows/CI/badge.svg)](https://github.com/amine7777/ansible-role-mariadb/actions)|[![quality](https://img.shields.io/ansible/quality/50498)](https://galaxy.ansible.com/amine7777/mariadb)|[![downloads](https://img.shields.io/ansible/role/d/50498)](https://galaxy.ansible.com/amine7777/mariadb)|[![Version](https://img.shields.io/github/release/amine7777/ansible-role-mariadb.svg)](https://github.com/amine7777/ansible-role-mariadb/releases/)|
+|[![travis](https://travis-ci.com/amine7777/ansible-role-mariadb.svg?branch=master)](https://travis-ci.com/amine7777/ansible-role-mariadb)|[![github](https://github.com/amine7777/ansible-role-mariadb/workflows/CI/badge.svg)](https://github.com/amine7777/ansible-role-mariadb/actions)|[![quality](https://img.shields.io/ansible/quality/52042)](https://galaxy.ansible.com/amine7777/mariadb)|[![downloads](https://img.shields.io/ansible/role/d/52042)](https://galaxy.ansible.com/amine7777/mariadb)|[![Version](https://img.shields.io/github/release/amine7777/ansible-role-mariadb.svg)](https://github.com/amine7777/ansible-role-mariadb/releases/)|
 
 ![](mariadb.jpg)
 
@@ -19,19 +19,38 @@ Role Variables
 --------------
 These variables helps to manage mariadb installation.
 
-You can specify your mariadb version in this variable.
+You can specify your mariadb root password in this variable.
 ```yaml
-mariadb_version: 0.13.1
-mariadb_arch: amd64
-mariadb_directory_path: /usr/local/bin
+mariadb_root_password: changemeplease
 ```
-This is the url where mariadb will be downloaded.
+By setting the root password you can create users using ***mariadb_users*** list.
+Here you add users with privilleges to databases or tables.
 ```yaml
-mariadb_download_url: 'https://releases.hashicorp.com/mariadb/{{ mariadb_version }}/mariadb_{{ mariadb_version }}_linux_{{ mariadb_arch }}.zip'
+mariadb_users:
+  - name: john
+    password: doe
+    host: localhost
+    priv: "mydatabase.*:ALL"
+    state: present
+
+  - name: jess
+    password: doe
+    host: localhost
+    priv: "*.*:ALL"
+    state: present
 ```
-This is the path where packer binary will be stored.
+After settings the users you can create the databases with the appropriate users.
 ```yaml
-mariadb_directory_path: /usr/local/bin
+mariadb_databases:
+  - name: mydatabase
+    login_user: john
+    login_password: doe
+    state: present
+
+  - name: mydatabase
+    login_user: jess
+    login_password: doet
+    state: present
 ```
 
 Example Playbook
@@ -39,10 +58,22 @@ Example Playbook
 
 ```yaml
 - hosts: all
+  vars:
+    mariadb_users:
+      - name: john
+        password: doe
+        host: localhost
+        priv: "mydatabase.*:ALL"
+        state: present
+
+    mariadb_databases:
+      - name: mydatabase
+        login_user: john
+        login_password: doe
+        state: present
   roles:
      - amine7777.mariadb
 ```
-
 
 Author Information
 ------------------
