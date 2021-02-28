@@ -17,7 +17,7 @@ Requirements
 
 Role Variables
 --------------
-These variables helps to manage mariadb installation.
+These variables help you to manage mariadb installation.
 
 You can specify your mariadb root password in this variable.
 ```yaml
